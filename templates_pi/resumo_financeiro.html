@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <title>Document</title>
+</head>
+<body class="main">
+<div id="interface">
+    <header id="cabecalho">
+    <hgroup>
+        <h1>Gerenciador</br>de Fluxo</br>de Caixa</h1>
+        <h2>Resumo Financeiro</h2>
+    </hgroup>
+
+    <nav id="menu">
+    <ul>
+        <li><a href="http://127.0.0.1:8000/login/controle-caixa/">Controle de Caixa</a></li>
+        <li><a href="http://127.0.0.1:8000/login/resumo-financeiro/">Resumo Financeiro</a></li>
+    </ul>
+    </nav>
+    </header>
+    <section id="nome">
+        <ul >
+            <li>Hoje</li>
+            <li>na Semana</li>
+            <li>no Mês</li>
+        </ul>
+        <ul>
+    </section>
+    <section id="resumo">
+        <ul >
+            {% for consolidado in saidas %}
+                <li id="consolidado">{{ consolidado }}</li>
+
+            {% endfor %}
+        </ul>
+        <ul>
+    </section>
+
+</div>
+</body>
+</html>
+
+
