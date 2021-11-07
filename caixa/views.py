@@ -2,46 +2,98 @@
 from django.http import HttpResponse'''
 
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import ControleCaixa
+from .form import FieldsApp
 import datetime as dt
 
-def calculadora():
-    listaSaida = []
+
+def calculadoraEntrada():
+    resumoEntradas = {}
 
     'Cálculo do dia'
     dia = ControleCaixa.objects.filter(data_fluxo=dt.datetime.now())
     totDia = 0
     for entradas in dia:
-        totDia = totDia +entradas.saida
+        totDia = totDia + entradas.entrada
 
     'Cálculo da Semana'
     semana = ControleCaixa.objects.filter(data_fluxo__gt=(dt.datetime.now() - dt.timedelta(days=7)))
     totSemana = 0
     for entradas in semana:
-        totSemana = totSemana + entradas.saida
+        totSemana = totSemana + entradas.entrada
 
     'Cálculo do Mês'
     mes = ControleCaixa.objects.filter(data_fluxo__gt=(dt.datetime.now() - dt.timedelta(days=30)))
     totMes = 0
     for entradas in mes:
-        totMes = totMes +entradas.saida
+        totMes = totMes + entradas.entrada
 
-    listaSaida.append(totDia)
-    listaSaida.append(totSemana)
-    listaSaida.append(totMes)
 
-    return listaSaida
+    resumoEntradas['entrada_dia'] = totDia
+    resumoEntradas['entrada_semana'] = totSemana
+    resumoEntradas['entrada_mes'] = totMes
+
+    return resumoEntradas
+
+
+def calculadoraSaida():
+    resumoSaidas = {}
+
+    'Cálculo do dia'
+    dia = ControleCaixa.objects.filter(data_fluxo=dt.datetime.now())
+    totDia = 0
+    for saidas in dia:
+        totDia = totDia + saidas.saida
+
+    'Cálculo da Semana'
+    semana = ControleCaixa.objects.filter(data_fluxo__gt=(dt.datetime.now() - dt.timedelta(days=7)))
+    totSemana = 0
+    for saidas in semana:
+        totSemana = totSemana + saidas.saida
+
+    'Cálculo do Mês'
+    mes = ControleCaixa.objects.filter(data_fluxo__gt=(dt.datetime.now() - dt.timedelta(days=30)))
+    totMes = 0
+    for saidas in mes:
+        totMes = totMes + saidas.saida
+
+    resumoSaidas['saida_dia'] = totDia
+    resumoSaidas['saida_semana'] = totSemana
+    resumoSaidas['saida_mes'] = totMes
+
+    return resumoSaidas
+
+
+def calculadora():
+    listaResumofinanc= {}
+
+    listaSaida = calculadoraSaida()
+    listaResumofinanc.update(listaSaida)
+    listaEntrada = calculadoraEntrada()
+    listaResumofinanc.update(listaEntrada)
+
+    listaResumofinanc['consolidado_dia'] = listaResumofinanc['entrada_dia'] - listaResumofinanc['saida_dia']
+    listaResumofinanc['consolidado_semana'] = listaResumofinanc['entrada_semana'] - listaResumofinanc['saida_semana']
+    listaResumofinanc['consolidado_mes'] = listaResumofinanc['entrada_mes'] - listaResumofinanc['saida_mes']
+
+    return listaResumofinanc
 
 
 def resumoFinanceiro(request):
     lista = calculadora()
-    return render(request, 'resumo_financeiro.html', {'saidas': lista})
-
+    return render(request, 'resumo_financeiro.html', {'resumoFinanc': lista})
 
 def controleCaixa(request):
-    totEntrada = ControleCaixa.objects.all().order_by('data_fluxo')
-    return render(request, 'controle_caixa.html', {'totEntrada': totEntrada})
+    form = FieldsApp(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('http://127.0.0.1:8000/login/controle-caixa/')
+    return render(request, 'controle_caixa.html', {'form': form})
+
+
+''' /// '''''
 
 
 
@@ -53,20 +105,9 @@ def controleCaixa(request):
 
 
 
-'''def resumoFinanceiro(request):
-    return render(request, 'resumo_financeiro.html')'''
 
-'''soma = ()(dt.datetime.now() - dt.timedelta(days=7)
-   soma = ControleCaixa.objects.data_fluxo()
-   sete = ControleCaixa.objects.data_fluxo()
-   for semana in sete:semana = ControleCaixa.objects.filter((dt.datetime.now() - dt.timedelta(days=7))
-       totSemana = totSemana + semana
-   soma''''''
-   totEntrada = ControleCaixa.objects.filter(entrada__gt=0)
-   semana = (dt.datetime.now() - dt.timedelta(days=7))
-   mes = (dt.datetime.now() - dt.timedelta(days=30))
-   ano = (dt.datetime.now() - dt.timedelta(days=356))
-   print(listaSaida)
-   for entradas in totEntrada:
-       soma = soma + entradas.entrada
-   print(listaSaida)'''''
+
+
+
+
+

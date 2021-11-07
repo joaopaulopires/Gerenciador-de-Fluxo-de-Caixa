@@ -1,4 +1,5 @@
 {% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,59 +12,48 @@
 </head>
 <body class="main">
 <div id="interface">
-    <header id="cabecalho">
-    <hgroup>
-        <h1>Gerenciador</br>de Fluxo</br>de Caixa</h1>
+    <div class="cabecalho-main">
+        <header id="cabecalho">
+            <h1>Gerenciador</br>de Fluxo</br>de Caixa</h1>
+        <nav id="menu">
+            <ul>
+                <a href="http://127.0.0.1:8000/login/controle-caixa/"><li>Controle de Caixa</li></a>
+                <a href="http://127.0.0.1:8000/login/resumo-financeiro/"><li>Resumo Financeiro</li></a>
+            </ul>
+        </nav>
+        </header>
+    </div>
+
+    <div class="subtitulo">
         <h2>Controle de Caixa</h2>
-    </hgroup>
+    </div>
 
-    <nav id="menu">
-    <ul>
-        <li><a href="http://127.0.0.1:8000/login/controle-caixa/">Controle de Caixa</a></li>
-        <li><a href="http://127.0.0.1:8000/login/resumo-financeiro/">Resumo Financeiro</a></li>
-    </ul>
-    </nav>
-    </header>
     <section id="input">
-        <form method="post" action=""
+        <form method="POST" action="http://127.0.0.1:8000/login/controle-caixa/"  >
+            {% csrf_token %}
+            <ul>
+                <li id="entrada"><h3>Entrada</h3>
+                    <p>Anote neste campo todos os valores dos seus ganhos<br>
+(ex. venda de produto, serviço prestado, etc...)</p>
+                    {{ form.entrada }}
+                </li>
+                <li id="saida"><h3>Saída</h3>
+                    <p>Anote neste campo todos os valores dos seus gastos<br>
+(ex. compra de material, locomoção, etc...)</p>
+                    {{ form.saida }}
+                </li>
+            </ul>
+            </br>
+            {{ form.data_fluxo }}
+            <div class="botao">
+                <button type="submit">CONFIRMA</button>
+            </div>
+        </form>
 
 
     </section>
 
-    <section id="tabela">
-        <ul id="id">
-            <h3>Id</h3>
-            {% for entradas in totEntrada %}
-                <li>{{ entradas.id }}</li>
-                </br>
 
-            {% endfor %}
-        </ul>
-        <ul id="entrada">
-            <h3>Entrada</h3>
-            {% for entradas in totEntrada %}
-                <li>{{ entradas.entrada }}</li>
-                </br>
-
-            {% endfor %}
-        </ul>
-        <ul id="saida">
-            <h3>Saida</h3>
-            {% for entradas in totEntrada %}
-                <li>{{ entradas.saida }}</li>
-                </br>
-
-            {% endfor %}
-        </ul>
-        <ul id="data">
-            <h3>Data</h3>
-            {% for entradas in totEntrada %}
-                <li>{{ entradas.data_fluxo }}</li>
-                </br>
-
-            {% endfor %}
-        </ul>
-    </section>
 </div>
 </body>
 </html>
