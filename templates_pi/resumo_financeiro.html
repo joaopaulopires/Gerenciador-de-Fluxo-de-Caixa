@@ -11,36 +11,67 @@
 </head>
 <body class="main">
 <div id="interface">
-    <header id="cabecalho">
-    <hgroup>
-        <h1>Gerenciador</br>de Fluxo</br>de Caixa</h1>
+    <div class="cabecalho-main">
+        <header id="cabecalho">
+            <h1>Gerenciador</br>de Fluxo</br>de Caixa</h1>
+        <nav id="menu">
+            <ul>
+                <a href="http://127.0.0.1:8000/login/controle-caixa/"><li>Controle de Caixa</li></a>
+                <a href="http://127.0.0.1:8000/login/resumo-financeiro/"><li>Resumo Financeiro</li></a>
+            </ul>
+        </nav>
+        </header>
+    </div>
+
+    <div class="subtitulo">
         <h2>Resumo Financeiro</h2>
-    </hgroup>
+    </div>
 
-    <nav id="menu">
-    <ul>
-        <li><a href="http://127.0.0.1:8000/login/controle-caixa/">Controle de Caixa</a></li>
-        <li><a href="http://127.0.0.1:8000/login/resumo-financeiro/">Resumo Financeiro</a></li>
-    </ul>
-    </nav>
-    </header>
-    <section id="nome">
-        <ul >
-            <li>Hoje</li>
-            <li>na Semana</li>
-            <li>no Mês</li>
-        </ul>
-        <ul>
+    <section class="main">
+        <h2>Seu Lucro!</h2>
+        <div class="consolidados">
+                <ul>
+                    <li>
+                        <h3>Hoje</h3>
+                        <hgroup>
+                            <p>R$<span class="valor"> {{ resumoFinanc.consolidado_dia }}</span></p>
+                        </hgroup>
+                    </li>
+                    <li>
+                        <h3>na Semana</h3>
+                        <hgroup>
+                            <p>R$<span class="valor"> {{ resumoFinanc.consolidado_semana }}</span></p>
+                        </hgroup>
+                    </li>
+                    <li>
+                        <h3>no Mês</h3>
+                        <hgroup>
+                            <p>R$<span class="valor"> {{ resumoFinanc.consolidado_mes }}</span></p>
+                        </hgroup>
+                    </li>
+                </ul>
+        </div>
     </section>
-    <section id="resumo">
-        <ul >
-            {% for consolidado in saidas %}
-                <li id="consolidado">{{ consolidado }}</li>
 
-            {% endfor %}
-        </ul>
-        <ul>
+    <section id="resumoFinanc">
+        <br>
+        <br>
+        <table id="consolidado">
+            <tr id="consolidado_dados"><td><h4>Entradas</h4></td><td><section><p id="estatico">Hoje</br></p><p id="dinamico">R$ {{ resumoFinanc.entrada_dia }}</p></section></td><td><section><p id="estatico">na Semana</br></p><p id="dinamico">R$ {{ resumoFinanc.entrada_semana }}</p></section></td><td><section><p id="estatico">no Mês</br></p><p id="dinamico">R$ {{ resumoFinanc.entrada_mes }}</p></section></td></tr>
+            <tr id="consolidado_dados"><td><h4>Saídas</h4></td><td><section><p id="estatico">Hoje</br></p><p id="dinamico">R$ {{ resumoFinanc.saida_dia }}</p></section></td><td><section><p id="estatico">na Semana</br></p><p id="dinamico">R$ {{ resumoFinanc.saida_semana }}</p></section></td><td><section><p id="estatico">no Mês</br></p><p id="dinamico">R$ {{ resumoFinanc.saida_mes }}</p></section></td></tr>
+        </table>
     </section>
+
+    <div class="espacador">
+        <section>
+            <p> </p>
+        </section>
+    </div>
+    <div class="centro">
+        <button>Texto para centralizar</button>
+    </div>
+
+
 
 </div>
 </body>
