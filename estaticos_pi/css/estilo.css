@@ -235,14 +235,10 @@ section#input p {
 }
 
 .centro {
-    background-color: #f20000;
+
     width: 300px;
     height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.espacador {
-    display: none;
 }
