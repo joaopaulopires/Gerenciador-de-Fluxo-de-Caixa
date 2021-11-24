@@ -89,7 +89,7 @@ def controleCaixa(request):
 
     if form.is_valid():
         form.save()
-        return redirect('http://127.0.0.1:8000/login/controle-caixa/')
+        return redirect('https://gerenciador-caixa.herokuapp.com/controle-caixa/')
     return render(request, 'controle_caixa.html', {'form': form})
 
 def home(request):
