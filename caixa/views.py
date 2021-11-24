@@ -92,6 +92,9 @@ def controleCaixa(request):
         return redirect('http://127.0.0.1:8000/login/controle-caixa/')
     return render(request, 'controle_caixa.html', {'form': form})
 
+def home(request):
+    return render(request, 'home.html')
+
 
 ''' /// '''''
 
