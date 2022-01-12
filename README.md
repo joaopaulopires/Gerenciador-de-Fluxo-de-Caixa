@@ -10,8 +10,7 @@ Aplicativo web desenvolvido e finalizado em 11/2021, por alunos do curso de Bach
     <li>Python
     <li>Framework Django
     <li>HTML e CSS
-    <li>Banco de dados: SQLite e Postgres
+    <li>Banco de dados: SQLite e PostgreSQL
   </ul>
   
   Deploy realizado no Heroku : https://gerenciador-caixa.herokuapp.com/
-    
