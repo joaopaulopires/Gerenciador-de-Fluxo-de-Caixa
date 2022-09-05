@@ -1,4 +1,4 @@
-# ProjetoIntegrador1
+# Gerenciador de Fluxo de Caixa
 Aplicativo web desenvolvido e finalizado em 11/2021, por alunos do curso de Bacharel em Tecnologia da Informação, 4º semestre,para o Projeto Integrador I da UNIVESP.
 
 <b>É um sistema gerenciador de fluxo de caixa simples
